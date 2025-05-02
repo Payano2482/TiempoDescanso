@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="volverAInicio()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        Volver
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Historial de Descansos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-container">
+    <ion-card *ngIf="registros.length === 0">
+      <ion-card-content>
+        <p class="ion-text-center">No hay registros de descansos</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-list *ngIf="registros.length > 0">
+      <ion-item *ngFor="let registro of registros" class="registro-item">
+        <ion-label>
+          <h2>{{ registro.nombre }}</h2>
+          <p>Equipo: {{ registro.equipo }} ({{ registro.fichaEquipo }})</p>
+          <p>Inicio: {{ formatearFecha(registro.inicioDescanso) }}</p>
+          <p>Fin: {{ formatearFecha(registro.finDescanso) }}</p>
+          <p>Duración: {{ registro.duracionTotal | tiempoFormato }}</p>
+          <p *ngIf="registro.tiempoExcedido > 0" class="tiempo-excedido">
+            Tiempo excedido: {{ registro.tiempoExcedido | tiempoFormato }}
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content> 

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Control de Descansos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirmarBorrarTodo()" color="danger">
+        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="confirmarSalir()">
+        <ion-icon name="exit-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="content-container">
+    <ion-card class="status-card">
+      <ion-card-header>
+        <ion-card-title>Estado Actual</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="status-info">
+          <div class="clock-container">
+            <div class="clock">
+              <div class="outer-circle"></div>
+              <div class="inner-circle">
+                <div class="time">{{horaActual | date:'HH:mm:ss'}}</div>
+                <div class="count">
+                  <span class="number">{{empleadosEnDescanso}}</span>
+                  <span class="label">En Descanso</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="action-card">
+      <ion-card-content>
+        <ion-button expand="block" (click)="navegarADescanso()" class="ion-margin-bottom">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Registrar Nuevo Descanso
+        </ion-button>
+        <ion-button expand="block" (click)="navegarAHistorial()" color="secondary">
+          <ion-icon name="time-outline" slot="start"></ion-icon>
+          Ver Historial de Descansos
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
