@@ -236,6 +236,11 @@ export class EmpleadosService {
     }
   }
 
+  limpiarHistorial() {
+    localStorage.removeItem('registros_descanso');
+    this.registrosSubject.next([]);
+  }
+
   obtenerEmpleadosActivos() {
     return this.empleadosSubject.value.filter(emp => emp.activo);
   }

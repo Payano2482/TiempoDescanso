@@ -53,4 +53,8 @@ export class HistorialComponent implements OnInit, OnDestroy {
       second: '2-digit'
     });
   }
+
+  borrarHistorial() {
+    this.empleadosService.limpiarHistorial();
+  }
 } 

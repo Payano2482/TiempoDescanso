@@ -39,7 +39,7 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
-    }
+      }
     if (this.clockSubscription) {
       this.clockSubscription.unsubscribe();
     }
@@ -47,7 +47,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   navegarADescanso() {
     this.router.navigate(['/descanso']);
-  }
+      }
 
   navegarAHistorial() {
     this.router.navigate(['/historial']);
@@ -87,7 +87,7 @@ export class HomePage implements OnInit, OnDestroy {
           handler: () => {
             this.empleadosService.limpiarTodo();
             this.router.navigate(['/home']);
-          }
+    }
         }
       ]
     });

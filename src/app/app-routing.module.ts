@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DescansoComponent } from './descanso/descanso.component';
+import { HistorialComponent } from './historial/historial.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'descanso',
     component: DescansoComponent
+  },
+  {
+    path: 'historial',
+    component: HistorialComponent
   }
 ];
 
