@@ -1,3 +1,37 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="main-menu" contentId="main-content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item routerLink="/home" routerDirection="root">
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          Inicio
+        </ion-item>
+        <ion-item routerLink="/descanso" routerDirection="root">
+          <ion-icon name="people-outline" slot="start"></ion-icon>
+          Personas en Descanso
+        </ion-item>
+        <ion-item routerLink="/historial" routerDirection="root">
+          <ion-icon name="time-outline" slot="start"></ion-icon>
+          Historial
+        </ion-item>
+        <ion-item *ngIf="esAdmin()" routerLink="/configuracion" routerDirection="root">
+          <ion-icon name="settings-outline" slot="start"></ion-icon>
+          Configuración
+        </ion-item>
+        <ion-item (click)="logout()" color="danger">
+          <ion-icon name="log-out-outline" slot="start"></ion-icon>
+          Cerrar sesión
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-router-outlet></ion-router-outlet>
+  </div>
 </ion-app>

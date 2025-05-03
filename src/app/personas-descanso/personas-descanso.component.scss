@@ -1,0 +1,40 @@
+.content-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.card-empleado {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 2px solid #e0e0e0;
+  transition: border-color 0.2s;
+}
+
+.card-empleado.excedido {
+  border-color: #e53935;
+  background: #fff5f5;
+}
+
+.excedido-text {
+  color: #e53935;
+  font-weight: bold;
+}
+
+ion-avatar {
+  background: #e3f2fd;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+ion-item {
+  --background: transparent;
+  --min-height: 80px;
+}
+
+ion-button[color="danger"] {
+  --background: #e53935;
+  --color: #fff;
+} 

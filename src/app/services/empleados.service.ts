@@ -35,6 +35,7 @@ export class EmpleadosService {
   registros$ = this.registrosSubject.asObservable();
   private intervalId: any;
   private audioContext: AudioContext | null = null;
+  private alertadosExcedido = new Set<string>();
 
   constructor(private alertController: AlertController) {
     this.cargarEmpleados();
@@ -82,11 +83,6 @@ export class EmpleadosService {
       message: `${empleado.nombre} ha excedido el tiempo de descanso.`,
       cssClass: 'alerta-excedido',
       buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'alert-button-cancel'
-        },
         {
           text: 'Aceptar',
           cssClass: 'alert-button-ok'
@@ -139,25 +135,28 @@ export class EmpleadosService {
         const minutos = Math.floor(tiempoTranscurridoTotal / 60);
         const segundos = tiempoTranscurridoTotal % 60;
         
-        if (minutos < 60) {
+        if (minutos < 1) {
+          this.alertadosExcedido.delete(empleado.nombre);
           return {
             ...empleado,
             tiempoTranscurrido: minutos,
             segundos: segundos,
             estado: 'normal' as const
           };
-        } else if (minutos < 70) { // 10 minutos después de exceder
-          if (empleado.estado !== 'excedido') {
+        } else if (minutos < 11) { // 10 minutos después de exceder (ahora 10 después de 1)
+          if (empleado.estado !== 'excedido' && !this.alertadosExcedido.has(empleado.nombre)) {
+            this.alertadosExcedido.add(empleado.nombre);
             this.mostrarAlertaExcedido(empleado);
           }
           return {
             ...empleado,
             tiempoTranscurrido: minutos,
             segundos: segundos,
-            tiempoExcedido: minutos - 60,
+            tiempoExcedido: minutos - 1,
             estado: 'excedido' as const
           };
         } else {
+          this.alertadosExcedido.delete(empleado.nombre);
           // Crear registro y desactivar empleado
           const registro: RegistroDescanso = {
             nombre: empleado.nombre,
@@ -166,7 +165,7 @@ export class EmpleadosService {
             inicioDescanso: empleado.inicioDescanso,
             finDescanso: Date.now(),
             duracionTotal: minutos,
-            tiempoExcedido: minutos - 60
+            tiempoExcedido: minutos - 1
           };
 
           const registrosActuales = this.registrosSubject.value;
@@ -176,7 +175,7 @@ export class EmpleadosService {
             ...empleado,
             tiempoTranscurrido: minutos,
             segundos: segundos,
-            tiempoExcedido: minutos - 60,
+            tiempoExcedido: minutos - 1,
             estado: 'completado' as const,
             finDescanso: Date.now(),
             activo: false
@@ -215,7 +214,7 @@ export class EmpleadosService {
         inicioDescanso: empleado.inicioDescanso,
         finDescanso: Date.now(),
         duracionTotal: tiempoTranscurridoTotal,
-        tiempoExcedido: Math.max(0, tiempoTranscurridoTotal - 60)
+        tiempoExcedido: Math.max(0, tiempoTranscurridoTotal - 1)
       };
 
       const registrosActuales = this.registrosSubject.value;

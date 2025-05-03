@@ -2,8 +2,15 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DescansoComponent } from './descanso/descanso.component';
 import { HistorialComponent } from './historial/historial.component';
+import { LoginComponent } from './login/login.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { PersonasDescansoComponent } from './personas-descanso/personas-descanso.component';
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
@@ -15,11 +22,15 @@ const routes: Routes = [
   },
   {
     path: 'descanso',
-    component: DescansoComponent
+    component: PersonasDescansoComponent
   },
   {
     path: 'historial',
     component: HistorialComponent
+  },
+  {
+    path: 'configuracion',
+    component: ConfiguracionComponent
   }
 ];
 
